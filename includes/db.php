@@ -3,7 +3,6 @@ $db_path = __DIR__ . '/../db/classroom.sqlite';
 $db = new PDO("sqlite:$db_path");
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-// Initialize tables if they don't exist
 $db->exec("CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     email TEXT UNIQUE NOT NULL,
