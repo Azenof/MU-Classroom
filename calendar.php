@@ -17,6 +17,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['title'])) {
     exit;
 }
 
+// Delete Event Logic
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $stmt = $db->prepare("DELETE FROM events WHERE id = ?");
+    $stmt->execute([$id]);
+    header("Location: calendar.php");
+    exit;
+}
+
 $events = $db->query("SELECT * FROM events ORDER BY due_date ASC")->fetchAll();
 ?>
 
@@ -44,11 +53,18 @@ $events = $db->query("SELECT * FROM events ORDER BY due_date ASC")->fetchAll();
     <p>No deadlines scheduled yet.</p>
 <?php else: ?>
     <?php foreach ($events as $event): ?>
-        <div class="item">
-            <span class="due-date">[<?php echo strtoupper($event['type']); ?>]</span>
-            <strong><?php echo htmlspecialchars($event['title']); ?></strong>
-            <br>
-            <span style="color: #555;">Deadline: <?php echo date('F j, Y', strtotime($event['due_date'])); ?></span>
+        <div class="item" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <span class="due-date">[<?php echo strtoupper($event['type']); ?>]</span>
+                <strong><?php echo htmlspecialchars($event['title']); ?></strong>
+                <br>
+                <span style="color: #555;">Deadline: <?php echo date('F j, Y', strtotime($event['due_date'])); ?></span>
+            </div>
+            <div>
+                <a href="calendar.php?delete=<?php echo $event['id']; ?>" 
+                   onclick="return confirm('Are you sure you want to delete this event?')" 
+                   style="color: #dc3545; text-decoration: none; font-weight: bold; border: 1px solid #dc3545; padding: 5px 10px; border-radius: 4px;">Delete</a>
+            </div>
         </div>
     <?php endforeach; ?>
 <?php endif; ?>
