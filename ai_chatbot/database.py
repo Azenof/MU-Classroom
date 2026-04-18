@@ -18,11 +18,11 @@ def get_events():
     try:
         cursor = conn.cursor()
         cursor.execute("""
-            SELECT title, type, due_date
+            SELECT title, type, due_date, description
             FROM events
-            WHERE due_date >= date('now')
+            WHERE due_date >= date('now', 'localtime')
             ORDER BY due_date ASC
-            LIMIT 5
+            LIMIT 20
         """)
         rows = cursor.fetchall()
         return rows
@@ -54,7 +54,7 @@ def get_notes():
             SELECT title, content
             FROM notes
             ORDER BY created_at DESC
-            LIMIT 5
+            LIMIT 20
         """)
         rows = cursor.fetchall()
         return rows

@@ -32,6 +32,7 @@ $db->exec("CREATE TABLE IF NOT EXISTS events (
     title TEXT NOT NULL,
     type TEXT CHECK(type IN ('assignment', 'exam')) NOT NULL,
     due_date DATE NOT NULL,
+    description TEXT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )");
 ?>

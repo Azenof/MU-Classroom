@@ -1,14 +1,49 @@
-body { font-family: sans-serif; margin: 0; padding: 20px; background-color: #f4f4f4; color: #333; }
-.container { max-width: 800px; margin: auto; background-color: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-h1, h2 { color: #0056b3; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 20px; background-color: #f0f2f5; color: #333; }
+.container { max-width: 900px; margin: auto; background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+h1, h2, h3 { color: #003366; }
+
 form { display: flex; flex-direction: column; gap: 10px; }
-input, select, textarea { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
-button { padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
-button:hover { background-color: #0056b3; }
-.nav { margin-bottom: 20px; border-bottom: 2px solid #007bff; padding-bottom: 10px; }
-.nav a { margin-right: 15px; text-decoration: none; color: #007bff; font-weight: bold; }
-.item { border-bottom: 1px solid #eee; padding: 10px 0; }
-.due-date { font-weight: bold; color: #d9534f; }
+input, select, textarea { padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
+button { padding: 12px; background-color: #004085; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; transition: background 0.2s; }
+button:hover { background-color: #002752; }
+
+.nav { 
+    margin-bottom: 30px; 
+    border-bottom: 2px solid #004085; 
+    padding: 10px 0; 
+    display: flex; 
+    align-items: center;
+    gap: 5px; /* Tightened gap */
+}
+.nav a { 
+    padding: 8px 10px;
+    text-decoration: none; 
+    color: #004085; 
+    font-weight: bold; 
+    display: inline-flex; 
+    align-items: center;
+    border-radius: 6px;
+    transition: all 0.2s;
+    font-size: 0.9em; /* Slightly smaller font */
+    white-space: nowrap; /* Force one line */
+}
+.nav a:hover {
+    background: #e9ecef;
+}
+.nav a.logo-link {
+    padding: 0;
+    margin-right: 10px;
+}
+.nav a.logout {
+    margin-left: auto;
+    color: #9d3d3d; /* Matte Red */
+}
+.nav a.logout:hover {
+    background: #f8d7da;
+}
+
+.item { border-bottom: 1px solid #eee; padding: 15px 0; }
+.due-date { font-weight: bold; color: #9d3d3d; } /* Matte Red */
 
 /* AI Chatbot Styles */
 #ai-chat-container {
@@ -20,14 +55,14 @@ button:hover { background-color: #0056b3; }
     border: 1px solid #ddd;
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: inherit;
     display: flex;
     flex-direction: column;
     z-index: 1000;
     overflow: hidden;
 }
 #ai-chat-header {
-    background: #007bff;
+    background: #004085;
     color: white;
     padding: 12px 15px;
     font-weight: bold;
@@ -59,7 +94,7 @@ button:hover { background-color: #0056b3; }
     outline: none;
 }
 .chat-btn {
-    background: #007bff;
+    background: #004085;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -69,5 +104,5 @@ button:hover { background-color: #0056b3; }
     transition: background 0.2s;
 }
 .chat-btn:hover {
-    background: #0056b3;
+    background: #002752;
 }

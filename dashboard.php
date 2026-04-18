@@ -9,7 +9,7 @@ require_once 'includes/db.php';
 // Fetch recent data for summary
 $materials_count = $db->query("SELECT COUNT(*) FROM materials")->fetchColumn();
 $notes_count = $db->query("SELECT COUNT(*) FROM notes")->fetchColumn();
-$due_dates = $db->query("SELECT * FROM events WHERE due_date >= date('now') ORDER BY due_date ASC LIMIT 5")->fetchAll();
+$due_dates = $db->query("SELECT * FROM events WHERE due_date >= date('now', 'localtime') ORDER BY due_date ASC LIMIT 5")->fetchAll();
 
 ?>
 
