@@ -30,9 +30,18 @@ $db->exec("CREATE TABLE IF NOT EXISTS materials (
 $db->exec("CREATE TABLE IF NOT EXISTS events (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     title TEXT NOT NULL,
-    type TEXT CHECK(type IN ('assignment', 'exam')) NOT NULL,
+    type TEXT CHECK(type IN ('assignment', 'exam', 'CT', 'presentation', 'project')) NOT NULL,
     due_date DATE NOT NULL,
     description TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)");
+
+$db->exec("CREATE TABLE IF NOT EXISTS past_questions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    course_name TEXT NOT NULL,
+    exam_type TEXT NOT NULL,
+    batch TEXT NOT NULL,
+    image_path TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )");
 ?>

@@ -60,3 +60,19 @@ def get_notes():
         return rows
     finally:
         conn.close()
+
+def get_past_questions():
+    conn = get_connection()
+    if not conn: return []
+    try:
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT course_name, exam_type, batch, image_path
+            FROM past_questions
+            ORDER BY created_at DESC
+            LIMIT 10
+        """)
+        rows = cursor.fetchall()
+        return rows
+    finally:
+        conn.close()

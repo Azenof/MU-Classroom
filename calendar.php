@@ -48,6 +48,9 @@ $past_events = $db->query("SELECT * FROM events WHERE due_date < date('now', 'lo
                 <select name="type" style="flex: 1;">
                     <option value="assignment">Assignment</option>
                     <option value="exam">Exam</option>
+                    <option value="CT">CT</option>
+                    <option value="presentation">Presentation</option>
+                    <option value="project">Project</option>
                 </select>
                 <input type="date" name="due_date" required style="flex: 1;">
             </div>
@@ -65,7 +68,7 @@ $past_events = $db->query("SELECT * FROM events WHERE due_date < date('now', 'lo
         <div class="item" style="border-bottom: 1px solid #eee; padding: 15px 0;">
             <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                 <div>
-                    <span class="due-date">[<?php echo strtoupper($event['type']); ?>]</span>
+                    <span class="due-date <?php echo strtolower($event['type']); ?>">[<?php echo strtoupper($event['type']); ?>]</span>
                     <strong><?php echo htmlspecialchars($event['title']); ?></strong>
                     <br>
                     <span style="color: #555;">Deadline: <?php echo date('F j, Y', strtotime($event['due_date'])); ?></span>
@@ -97,7 +100,7 @@ $past_events = $db->query("SELECT * FROM events WHERE due_date < date('now', 'lo
             <div class="item" style="border-bottom: 1px solid #eee; padding: 15px 0; border-left: 4px solid #ccc; padding-left: 10px;">
                 <div style="display: flex; justify-content: space-between; align-items: flex-start;">
                     <div>
-                        <span style="color: #888;">[<?php echo strtoupper($event['type']); ?>]</span>
+                        <span class="due-date <?php echo strtolower($event['type']); ?>" style="filter: grayscale(1); opacity: 0.6;">[<?php echo strtoupper($event['type']); ?>]</span>
                         <strong style="text-decoration: line-through; color: #888;"><?php echo htmlspecialchars($event['title']); ?></strong>
                         <br>
                         <span style="color: #999;">Ended: <?php echo date('F j, Y', strtotime($event['due_date'])); ?></span>

@@ -14,9 +14,10 @@
         <a href="dashboard.php">Dashboard</a>
         <a href="notes.php">Notes</a>
         <a href="materials.php">Materials</a>
+        <a href="past_questions.php">Past Questions</a>
         <a href="calendar.php">Due Dates</a>
         <?php if (isset($_SESSION['user_id'])): ?>
-            <a href="logout.php" class="logout">Logout (<?php echo htmlspecialchars($_SESSION['user_name']); ?>)</a>
+            <a href="logout.php" class="logout">Logout</a>
         <?php else: ?>
             <a href="index.php" class="logout">Login</a>
         <?php endif; ?>

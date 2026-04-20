@@ -43,7 +43,12 @@ button:hover { background-color: #002752; }
 }
 
 .item { border-bottom: 1px solid #eee; padding: 15px 0; }
-.due-date { font-weight: bold; color: #9d3d3d; } /* Matte Red */
+.due-date { font-weight: bold; color: #9d3d3d; } /* Default Matte Red for Exams */
+.due-date.assignment { color: #d4a017; } /* Softer Matte Yellow */
+.due-date.ct { color: #f57c00; } /* Orange */
+.due-date.presentation { color: #388e3c; } /* Green */
+.due-date.project { color: #6a1b9a; } /* Deep Purple */
+.due-date.exam { color: #9d3d3d; } /* Matte Red */
 
 /* AI Chatbot Styles */
 #ai-chat-container {
@@ -105,4 +110,59 @@ button:hover { background-color: #002752; }
 }
 .chat-btn:hover {
     background: #002752;
+}
+
+/* Proactive Reminder Styles */
+.proactive-reminder {
+    background: #e3f2fd;
+    border-left: 5px solid #004085;
+    padding: 15px 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    animation: slideDown 0.5s ease-out;
+}
+
+.reminder-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.reminder-icon {
+    font-size: 1.5rem;
+}
+
+.reminder-text {
+    color: #003366;
+    font-weight: 500;
+}
+
+.reminder-text strong {
+    color: #9d3d3d;
+}
+
+.reminder-btn {
+    background: #004085;
+    color: white;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.reminder-btn:hover {
+    background: #002752;
+    transform: scale(1.05);
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
