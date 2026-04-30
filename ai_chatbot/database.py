@@ -76,3 +76,19 @@ def get_past_questions():
         return rows
     finally:
         conn.close()
+
+def get_cgpa_data():
+    conn = get_connection()
+    if not conn: return []
+    try:
+        cursor = conn.cursor()
+        # Fetch all results to calculate stats or provide detailed info
+        cursor.execute("""
+            SELECT course_name, credits, grade, letter_grade, semester, status
+            FROM course_results
+            ORDER BY semester ASC
+        """)
+        rows = cursor.fetchall()
+        return rows
+    finally:
+        conn.close()

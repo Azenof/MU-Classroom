@@ -1,0 +1,10 @@
+.env
+__pycache__/
+*.pyc
+.DS_Store
+.vscode/
+.idea/
+vendor/
+node_modules/
+# Keep the database as per README, but maybe ignore specific temp db files if any
+# uploads/ # Uncomment if you don't want to sync user-uploaded content

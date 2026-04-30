@@ -44,4 +44,16 @@ $db->exec("CREATE TABLE IF NOT EXISTS past_questions (
     image_path TEXT NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 )");
+
+$db->exec("CREATE TABLE IF NOT EXISTS course_results (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    course_name TEXT NOT NULL,
+    credits REAL NOT NULL,
+    grade REAL NOT NULL,
+    letter_grade TEXT,
+    semester TEXT NOT NULL,
+    status TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+)");
 ?>

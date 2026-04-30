@@ -36,87 +36,73 @@ $past_events = $db->query("SELECT * FROM events WHERE due_date < date('now', 'lo
 
 <?php include 'includes/header.php'; ?>
 
-<h1>Exams & Assignments Due Dates</h1>
-<p>Keep track of important deadlines for your courses.</p>
+<h1>Exams & Due Dates</h1>
+<p style="color: #6c757d; margin-bottom: 30px;">Keep track of important deadlines and academic milestones.</p>
 
-<div style="background: #fff3e0; padding: 15px; border: 1px solid #ffe0b2; border-radius: 8px; margin-bottom: 20px;">
-    <h3>Add Important Date</h3>
+<div class="card" style="margin-bottom: 40px; border-top: 4px solid #004085;">
+    <h3 style="margin-top: 0; margin-bottom: 20px;">📅 Add New Deadline</h3>
     <form method="POST">
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-            <div style="display: flex; gap: 10px;">
-                <input type="text" name="title" placeholder="Event Name (e.g., Mid-term Exam)" required style="flex: 2;">
-                <select name="type" style="flex: 1;">
-                    <option value="assignment">Assignment</option>
-                    <option value="exam">Exam</option>
-                    <option value="CT">CT</option>
-                    <option value="presentation">Presentation</option>
-                    <option value="project">Project</option>
-                </select>
-                <input type="date" name="due_date" required style="flex: 1;">
-            </div>
-            <textarea name="description" placeholder="Optional details (e.g., Topics: AI Ethics, Neural Networks...)" rows="2"></textarea>
-            <button type="submit" style="background-color: #004085; align-self: flex-start; padding: 10px 20px;">Add Event</button>
+        <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+            <input type="text" name="title" placeholder="Event Name (e.g., Mid-term Exam)" required>
+            <select name="type">
+                <option value="assignment">Assignment</option>
+                <option value="exam">Exam</option>
+                <option value="CT">CT</option>
+                <option value="presentation">Presentation</option>
+                <option value="project">Project</option>
+            </select>
+            <input type="date" name="due_date" required>
         </div>
+        <textarea name="description" placeholder="Optional details (e.g., Topics: AI Ethics, Neural Networks...)" rows="2" style="width: 100%; box-sizing: border-box; margin-bottom: 15px;"></textarea>
+        <button type="submit">Add to Calendar</button>
     </form>
 </div>
 
-<h3>Upcoming Deadlines</h3>
+<h3 style="margin-bottom: 20px;">Upcoming Deadlines</h3>
 <?php if (empty($upcoming_events)): ?>
-    <p>No upcoming deadlines scheduled.</p>
+    <div class="card" style="padding: 40px; text-align: center; color: #6c757d; border-style: dashed;">
+        <p>No upcoming deadlines scheduled. Keep up the good work! ✨</p>
+    </div>
 <?php else: ?>
-    <?php foreach ($upcoming_events as $event): ?>
-        <div class="item" style="border-bottom: 1px solid #eee; padding: 15px 0;">
-            <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                <div>
-                    <span class="due-date <?php echo strtolower($event['type']); ?>">[<?php echo strtoupper($event['type']); ?>]</span>
-                    <strong><?php echo htmlspecialchars($event['title']); ?></strong>
-                    <br>
-                    <span style="color: #555;">Deadline: <?php echo date('F j, Y', strtotime($event['due_date'])); ?></span>
-                </div>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <?php if (!empty($event['description'])): ?>
-                        <button onclick="toggleDetails(<?php echo $event['id']; ?>)" 
-                                style="background: #e3f2fd; border: 1px solid #2196f3; color: #2196f3; cursor: pointer; padding: 5px 10px; border-radius: 4px;">Details</button>
-                    <?php endif; ?>
-                    <a href="calendar.php?delete=<?php echo $event['id']; ?>" 
-                       onclick="return confirm('Are you sure you want to delete this event?')" 
-                       style="color: #dc3545; text-decoration: none; font-size: 0.9em; border: 1px solid #dc3545; padding: 4px 10px; border-radius: 4px;">Delete</a>
-                </div>
-            </div>
-            <?php if (!empty($event['description'])): ?>
-                <div id="details-<?php echo $event['id']; ?>" style="display: none; background: #f9f9f9; border-left: 3px solid #2196f3; margin-top: 10px; padding: 10px; font-size: 0.95em; color: #444;">
-                    <strong>Details:</strong><br>
-                    <?php echo nl2br(htmlspecialchars($event['description'])); ?>
-                </div>
-            <?php endif; ?>
-        </div>
-    <?php endforeach; ?>
-<?php endif; ?>
-
-<?php if (!empty($past_events)): ?>
-    <h3 style="margin-top: 40px; color: #666;">Past Events</h3>
-    <div style="opacity: 0.7;">
-        <?php foreach ($past_events as $event): ?>
-            <div class="item" style="border-bottom: 1px solid #eee; padding: 15px 0; border-left: 4px solid #ccc; padding-left: 10px;">
-                <div style="display: flex; justify-content: space-between; align-items: flex-start;">
-                    <div>
-                        <span class="due-date <?php echo strtolower($event['type']); ?>" style="filter: grayscale(1); opacity: 0.6;">[<?php echo strtoupper($event['type']); ?>]</span>
-                        <strong style="text-decoration: line-through; color: #888;"><?php echo htmlspecialchars($event['title']); ?></strong>
-                        <br>
-                        <span style="color: #999;">Ended: <?php echo date('F j, Y', strtotime($event['due_date'])); ?></span>
+    <div style="display: flex; flex-direction: column; gap: 15px;">
+        <?php foreach ($upcoming_events as $index => $event): ?>
+            <div class="card" style="animation-delay: <?php echo ($index * 0.05); ?>s; padding: 20px 25px;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <div style="text-align: center; min-width: 60px; padding-right: 20px; border-right: 1px solid #f1f3f5;">
+                            <div style="font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: #6c757d;">
+                                <?php echo date('M', strtotime($event['due_date'])); ?>
+                            </div>
+                            <div style="font-size: 1.5rem; font-weight: 800; color: #212529;">
+                                <?php echo date('d', strtotime($event['due_date'])); ?>
+                            </div>
+                        </div>
+                        <div>
+                            <span class="due-date <?php echo strtolower($event['type']); ?>" style="font-size: 0.7rem; letter-spacing: 0.05em; text-transform: uppercase; font-weight: 700;">
+                                • <?php echo htmlspecialchars($event['type']); ?>
+                            </span>
+                            <strong style="display: block; font-size: 1.15rem; color: #003366; margin-top: 4px;">
+                                <?php echo htmlspecialchars($event['title']); ?>
+                            </strong>
+                        </div>
                     </div>
                     <div style="display: flex; gap: 10px; align-items: center;">
                         <?php if (!empty($event['description'])): ?>
                             <button onclick="toggleDetails(<?php echo $event['id']; ?>)" 
-                                    style="background: #f5f5f5; border: 1px solid #ddd; color: #666; cursor: pointer; padding: 5px 10px; border-radius: 4px;">Details</button>
+                                    style="background: #e7f1ff; border: none; color: #004085; cursor: pointer; padding: 8px 15px; border-radius: 8px; font-weight: 700; font-size: 0.85rem;">
+                                Details
+                            </button>
                         <?php endif; ?>
                         <a href="calendar.php?delete=<?php echo $event['id']; ?>" 
-                           onclick="return confirm('Are you sure you want to delete this history?')" 
-                           style="color: #888; text-decoration: none; font-size: 0.8em; border: 1px solid #ccc; padding: 3px 8px; border-radius: 4px;">Remove</a>
+                           onclick="return confirm('Are you sure you want to delete this event?')" 
+                           style="color: #9d3d3d; text-decoration: none; font-size: 0.85rem; font-weight: 700; padding: 8px; border-radius: 8px; background: #fff5f5; border: 1px solid #f8d7da;">
+                            Delete
+                        </a>
                     </div>
                 </div>
                 <?php if (!empty($event['description'])): ?>
-                    <div id="details-<?php echo $event['id']; ?>" style="display: none; background: #fafafa; border-left: 3px solid #ccc; margin-top: 10px; padding: 10px; font-size: 0.9em; color: #777;">
+                    <div id="details-<?php echo $event['id']; ?>" style="display: none; background: #fafbfc; border-radius: 8px; margin-top: 15px; padding: 15px; font-size: 0.95rem; color: #495057; border: 1px solid #f1f3f5;">
+                        <strong>Note:</strong><br>
                         <?php echo nl2br(htmlspecialchars($event['description'])); ?>
                     </div>
                 <?php endif; ?>
@@ -124,6 +110,43 @@ $past_events = $db->query("SELECT * FROM events WHERE due_date < date('now', 'lo
         <?php endforeach; ?>
     </div>
 <?php endif; ?>
+
+<?php if (!empty($past_events)): ?>
+    <h3 style="margin-top: 50px; margin-bottom: 20px; color: #6c757d;">Completed / Past Events</h3>
+    <div style="display: flex; flex-direction: column; gap: 10px; opacity: 0.7;">
+        <?php foreach ($past_events as $event): ?>
+            <div class="card" style="padding: 15px 25px; border-left: 4px solid #dee2e6;">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div style="display: flex; align-items: center; gap: 20px;">
+                        <span style="color: #adb5bd; font-size: 0.85rem; min-width: 100px;">
+                            <?php echo date('M j, Y', strtotime($event['due_date'])); ?>
+                        </span>
+                        <strong style="color: #6c757d; text-decoration: line-through;"><?php echo htmlspecialchars($event['title']); ?></strong>
+                    </div>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <?php if (!empty($event['description'])): ?>
+                            <button onclick="toggleDetails(<?php echo $event['id']; ?>)" 
+                                    style="background: #f8f9fa; border: none; color: #6c757d; cursor: pointer; padding: 5px 12px; border-radius: 6px; font-weight: 600; font-size: 0.75rem;">
+                                Details
+                            </button>
+                        <?php endif; ?>
+                        <a href="calendar.php?delete=<?php echo $event['id']; ?>" 
+                           onclick="return confirm('Remove from history?')" 
+                           style="color: #adb5bd; text-decoration: none; font-size: 0.75rem; font-weight: 600;">
+                            Remove
+                        </a>
+                    </div>
+                </div>
+                <?php if (!empty($event['description'])): ?>
+                    <div id="details-<?php echo $event['id']; ?>" style="display: none; background: #fafbfc; border-radius: 8px; margin-top: 15px; padding: 15px; font-size: 0.9rem; color: #6c757d; border: 1px dashed #eee;">
+                        <?php echo nl2br(htmlspecialchars($event['description'])); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
 
 <script>
 function toggleDetails(id) {
